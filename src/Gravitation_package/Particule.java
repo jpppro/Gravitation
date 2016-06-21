@@ -47,8 +47,19 @@ public class Particule {
         VecteurPosition.setEntry(COORD_Y, this.pY);  
         return VecteurPosition;
     }
-    public void deplaceParticule(ArrayRealVector champDeForce) {
+    ArrayRealVector getVectVitesse() {
+        ArrayRealVector VecteurVitesse = new ArrayRealVector(2);
+        VecteurVitesse.setEntry(COORD_X, this.vX);
+        VecteurVitesse.setEntry(COORD_Y, this.vY);  
+        return VecteurVitesse;
+    }    
+    public void deplaceParticule(ArrayRealVector champDeForce, double delta_temps) {
         //this.getVectPosition()
+        // a=F/m
+        // x=(at2)/2+v0t+x0
+        // v=at+v0
+        // ArrayRealVector VecteurAcceleration= champDeForce/masse;
+        ArrayRealVector VecteurAcceleration= (ArrayRealVector)champDeForce.mapDivide(masse);
     }
 
 }
