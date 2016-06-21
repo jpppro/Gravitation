@@ -38,12 +38,16 @@ public abstract class BackEnd {
         /** BoucleTemporelle est exécutée à chaque incrément de temps
          *      Pour chaque particule du système, elle:
          *          - détermine sa position
-         *          - calucle le champ de force qui lui est appliqué
+         *          - calcule le champ de force qui lui est appliqué
          *          - détermine les positions, vitesses et accélérations en fonction du champ
          *          - déplace la particule en conséquence
         **/
         int max_nb_particules=espace.getLesParticulesDuSysteme().size();
         for (int indice_particule=0;indice_particule<max_nb_particules;indice_particule++) {
+            Particule laParticule=new Particule;
+            laParticule = espace.getLesParticulesDuSysteme  (indice_particule);
+            ArrayRealVector leVecteurPosition = espace.getVecteurPositionParticule(indice_particule);
+            ArrayRealVector leVecteurForce = espace.CalculerChampGravitationSurLieu(leVecteurPosition);
             
         }
        

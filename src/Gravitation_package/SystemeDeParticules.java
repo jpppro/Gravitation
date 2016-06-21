@@ -47,6 +47,7 @@ public class SystemeDeParticules {
     }
     
     public ArrayRealVector CalculerChampGravitationSurLieu(ArrayRealVector VecteurLieu) { 
+        
         /** Calcule le champ de (force de) gravitation à un endroit donné
             parcourir toutes les particules
                 déterminer sa distance au lieu de calcul
@@ -93,5 +94,12 @@ public class SystemeDeParticules {
         double [] Position;
         Particule uneParticule = (Particule)this.LesParticulesDuSysteme.get(indice);
         return uneParticule.getVectPosition().toArray();
+    }
+    
+    public ArrayRealVector getVecteurPositionParticule(int indice) {
+        ArrayRealVector vecteurPosition = new ArrayRealVector(2);
+        Particule uneParticule = (Particule)this.LesParticulesDuSysteme.get(indice);
+        vecteurPosition=uneParticule.getVectPosition();
+        return vecteurPosition;
     }
 }

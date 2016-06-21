@@ -34,7 +34,8 @@ public class Gravitation03_JavaFX extends Application {
         BackEnd.InitialiserParametres();
         BackEnd.Demarrer();
 
-        SystemeDeParticules TestSysPart = BackEnd.espace;  
+        SystemeDeParticules TestSysPart = BackEnd.espace; 
+        
         
         //Afficher les particules du système
         stage.show();
