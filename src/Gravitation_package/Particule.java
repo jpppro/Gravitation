@@ -15,8 +15,8 @@ public class Particule {
     private double densite;
     private double vX;
     private double vY;
-    private double aX;
-    private double aY;
+    // private double aX;  inutile tant que pas d'accélération interne particule
+    // private double aY;  ou que pas d'autres champs de force sont appliqués
 
     //private Vecteur2D champGravitationnel;
 
