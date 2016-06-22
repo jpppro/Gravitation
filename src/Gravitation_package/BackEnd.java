@@ -44,8 +44,8 @@ public abstract class BackEnd {
         **/
         int max_nb_particules=espace.getLesParticulesDuSysteme().size();
         for (int indice_particule=0;indice_particule<max_nb_particules;indice_particule++) {
-            Particule laParticule=new Particule;
-            laParticule = espace.getLesParticulesDuSysteme  (indice_particule);
+            Particule laParticule=new Particule();
+            //laParticule = espace.getLesParticulesDuSysteme  (indice_particule);
             ArrayRealVector leVecteurPosition = espace.getVecteurPositionParticule(indice_particule);
             ArrayRealVector leVecteurForce = espace.CalculerChampGravitationSurLieu(leVecteurPosition);
             
