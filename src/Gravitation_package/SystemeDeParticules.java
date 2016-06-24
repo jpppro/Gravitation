@@ -102,4 +102,8 @@ public class SystemeDeParticules {
         vecteurPosition=uneParticule.getVectPosition();
         return vecteurPosition;
     }
+        public Particule getParticule(int indice) {
+        Particule uneParticule = (Particule)this.LesParticulesDuSysteme.get(indice);
+        return uneParticule;
+    }
 }

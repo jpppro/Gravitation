@@ -1,6 +1,7 @@
 package Gravitation_package;
 
 import static Gravitation_package.BackEnd.*;
+import static java.lang.Math.pow;
 import static java.lang.Math.random;
 import org.apache.commons.math3.linear.*;
 
@@ -53,13 +54,23 @@ public class Particule {
         VecteurVitesse.setEntry(COORD_Y, this.vY);  
         return VecteurVitesse;
     }    
-    public void deplaceParticule(ArrayRealVector champDeForce, double delta_temps) {
+    public void deplacer(ArrayRealVector champDeForce, double deltaTemps) {
         //this.getVectPosition()
         // a=F/m
         // x=(at2)/2+v0t+x0
         // v=at+v0
         // ArrayRealVector VecteurAcceleration= champDeForce/masse;
         ArrayRealVector VecteurAcceleration= (ArrayRealVector)champDeForce.mapDivide(masse);
+        ArrayRealVector at2sur2 = (ArrayRealVector)VecteurAcceleration.mapMultiply(pow(deltaTemps,2)/2);
+        ArrayRealVector v0t = (ArrayRealVector)this.getVectVitesse().mapMultiply(deltaTemps);
+                //this.getVectPosition()+.add(this.getVectVitesse)().add;
+        ArrayRealVector VecteurPosition = this.getVectPosition().add(v0t).add(at2sur2);
+        //= at2sur2 + ...
+        ArrayRealVector VecteurVitesse=this.getVectVitesse().add(VecteurAcceleration.mapMultiply(deltaTemps));
+        //        this.VectPosition.setEntry(COORD_X, posX);
+//        this.VectPosition.setEntry(COORD_Y, posY);
+        this.pX = VecteurPosition.getEntry(COORD_X);
+        this.pY = VecteurPosition.getEntry(COORD_Y);
     }
 
 }

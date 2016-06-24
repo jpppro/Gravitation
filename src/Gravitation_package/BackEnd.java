@@ -29,13 +29,16 @@ public abstract class BackEnd {
         // TODO add your handling code here:
         espace = new SystemeDeParticules(LARGEUR_ESPACE,HAUTEUR_ESPACE);
         espace.Creer(3);
-        final double x []={0,0};
-        ArrayRealVector lieuTest = new ArrayRealVector(x);      
-        ArrayRealVector forceDeGravitation = espace.CalculerChampGravitationSurLieu(lieuTest);
-       
+        int compteur = 0;
+  
+        while (true) {
+            BoucleTemporelle(1000);
+            compteur ++;
+            if (compteur % 10000 == 0) System.out.println(compteur);
+        }
     }
-    static void BoucleTemporelle() {
-        /** BoucleTemporelle est exécutée à chaque incrément de temps
+    static void BoucleTemporelle(double temps_ecoule) {
+        /** BoucleTemporelle est exécutée dès que possible
          *      Pour chaque particule du système, elle:
          *          - détermine sa position
          *          - calcule le champ de force qui lui est appliqué
@@ -44,11 +47,13 @@ public abstract class BackEnd {
         **/
         int max_nb_particules=espace.getLesParticulesDuSysteme().size();
         for (int indice_particule=0;indice_particule<max_nb_particules;indice_particule++) {
-            Particule laParticule=new Particule;
-            laParticule = espace.getLesParticulesDuSysteme  (indice_particule);
-            ArrayRealVector leVecteurPosition = espace.getVecteurPositionParticule(indice_particule);
+            Particule laParticule=new Particule();
+            laParticule = espace.getParticule(indice_particule);
+//            ArrayRealVector leVecteurPosition = espace.getVecteurPositionParticule(indice_particule);
+            ArrayRealVector leVecteurPosition = laParticule.getVectPosition();
             ArrayRealVector leVecteurForce = espace.CalculerChampGravitationSurLieu(leVecteurPosition);
-            
+            laParticule.deplacer(leVecteurForce, temps_ecoule);
+
         }
        
     }    
