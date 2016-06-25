@@ -5,7 +5,11 @@
  */
 package InterfacesGraphiques;
 
-import Gravitation_package.BackEnd;
+import static Gravitation_package.BackEnd.HAUTEUR_ESPACE;
+import static Gravitation_package.BackEnd.LARGEUR_ESPACE;
+import static Gravitation_package.BackEnd.espace;
+import Gravitation_package.Particule;
+import Gravitation_package.SystemeDeParticules;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,7 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
+import org.apache.commons.math3.linear.ArrayRealVector;
 
 /**
  * FXML Controller class
@@ -33,25 +37,44 @@ public class IHM_designController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void Demarre(ActionEvent event) {
         System.out.println("test");
-        int nombre_de_particules = BackEnd.espace.getNombre_de_particules();
-            for (int nb_part=0;nb_part<nombre_de_particules;nb_part++) {
-                double p[]=BackEnd.espace.getPositionParticule(nb_part);
-                double a=p[0];
-                double b=p[1];
-                Circle cercle1=new Circle();
-                cercle1.setCenterX(a);
-                cercle1.setCenterY(b);
-                cercle1.setRadius(2);
-                
-                //cercle1.setStroke(Color.BLACK);
-                System.out.println("Cercle " + nb_part + " -x:" + a + "-y:" + b);
-                AffichageDesParticules.getChildren().add(cercle1);      
-            }        
+
+        // TODO add your handling code here:
+        espace = new SystemeDeParticules(LARGEUR_ESPACE, HAUTEUR_ESPACE);
+        espace.Creer(3);
+        int compteur = 0;
+
+        while (true) {
+            BoucleTemporelle(1000);
+            compteur++;
+            if (compteur % 10000 == 0) {
+                System.out.println(compteur);
+            }
+        }
     }
-    
+
+    static void BoucleTemporelle(double temps_ecoule) {
+        /**
+         * BoucleTemporelle est exécutée dès que possible Pour chaque particule
+         * du système, elle: - détermine sa position - calcule le champ de force
+         * qui lui est appliqué - détermine les positions, vitesses et
+         * accélérations en fonction du champ - déplace la particule en
+         * conséquence
+        *
+         */
+        int max_nb_particules = espace.getLesParticulesDuSysteme().size();
+        for (int indice_particule = 0; indice_particule < max_nb_particules; indice_particule++) {
+            Particule laParticule = new Particule();
+            laParticule = espace.getParticule(indice_particule);
+//            ArrayRealVector leVecteurPosition = espace.getVecteurPositionParticule(indice_particule);
+            ArrayRealVector leVecteurPosition = laParticule.getVectPosition();
+            ArrayRealVector leVecteurForce = espace.CalculerChampGravitationSurLieu(leVecteurPosition);
+            laParticule.deplacer(leVecteurForce, temps_ecoule);
+
+        }
+    }
 }

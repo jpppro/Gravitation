@@ -42,7 +42,7 @@ public class Particule {
     public double getMasse() {
         return masse;
     }
-    ArrayRealVector getVectPosition() {
+    public ArrayRealVector getVectPosition() {
         ArrayRealVector VecteurPosition = new ArrayRealVector(2);
         VecteurPosition.setEntry(COORD_X, this.pX);
         VecteurPosition.setEntry(COORD_Y, this.pY);  
